@@ -31,6 +31,12 @@ public class SuperpowerServiceLayerImpl implements SuperpowerServiceLayer {
     @Autowired
     HeroDao heroDao;
 
+    @Autowired
+    public SuperpowerServiceLayerImpl(SuperpowerDao powerDao, HeroDao heroDao) {
+        this.powerDao = powerDao;
+        this.heroDao = heroDao;
+    }
+    
     @Override
     public Superpower getPower(int id) {
         return powerDao.getPowerById(id);
@@ -38,23 +44,7 @@ public class SuperpowerServiceLayerImpl implements SuperpowerServiceLayer {
 
     @Override
     public List<Superpower> getAllPowers() {
-        List<Superpower> powers = powerDao.getAllPowers();
-        
-        // In case there isnt a default power, create one
-        boolean flag = true;
-        
-        for (Superpower power : powers) {
-            if (power.getPower().equalsIgnoreCase("None")) {
-                flag = false;
-            }
-        }
-        
-        if (flag) {
-            Superpower defaultPower = new Superpower();
-            defaultPower.setPower("None");
-            powerDao.addPower(defaultPower);
-        }
-        return powers;
+        return powerDao.getAllPowers();
     }
 
     @Override

@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `superherodb`.`superpower` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+INSERT INTO `superpower`(`Power`) VALUE("None");
 
 -- -----------------------------------------------------
 -- Table `superherodb`.`hero`

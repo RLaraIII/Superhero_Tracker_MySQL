@@ -39,6 +39,13 @@ public class SightingServiceLayerImpl implements SightingServiceLayer {
     @Autowired
     LocationDao locDao;
 
+    @Autowired
+    public SightingServiceLayerImpl(SightingDao sightingDao, HeroDao heroDao, LocationDao locDao) {
+        this.sightingDao = sightingDao;
+        this.heroDao = heroDao;
+        this.locDao = locDao;
+    }
+
     @Override
     public List<Sighting> getAllSightings() {
         return sightingDao.getAllSightings();

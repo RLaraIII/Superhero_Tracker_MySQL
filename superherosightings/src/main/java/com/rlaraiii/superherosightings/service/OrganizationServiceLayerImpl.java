@@ -31,6 +31,12 @@ public class OrganizationServiceLayerImpl implements OrganizationServiceLayer {
     @Autowired
     HeroDao heroDao;
 
+    @Autowired
+    public OrganizationServiceLayerImpl(OrganizationDao orgDao, HeroDao heroDao) {
+        this.orgDao = orgDao;
+        this.heroDao = heroDao;
+    }
+    
     @Override
     public List<Organization> getAllOrgs() {
         return orgDao.getAllOrganizations();

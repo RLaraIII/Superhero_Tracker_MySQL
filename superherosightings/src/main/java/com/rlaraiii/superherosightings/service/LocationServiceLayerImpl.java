@@ -35,6 +35,13 @@ public class LocationServiceLayerImpl implements LocationServiceLayer {
     @Autowired
     HeroDao heroDao;
 
+    @Autowired
+    public LocationServiceLayerImpl(LocationDao locDao, SightingDao sightingDao, HeroDao heroDao) {
+        this.locDao = locDao;
+        this.sightingDao = sightingDao;
+        this.heroDao = heroDao;
+    }
+
     @Override
     public List<Location> getAllLocs() {
         return locDao.getAllLocations();

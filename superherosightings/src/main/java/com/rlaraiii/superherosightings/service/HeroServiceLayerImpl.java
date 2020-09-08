@@ -40,6 +40,14 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
     @Autowired
     LocationDao locDao;
 
+    @Autowired
+    public HeroServiceLayerImpl(HeroDao heroDao, OrganizationDao orgDao, SuperpowerDao powerDao, LocationDao locDao) {
+        this.heroDao = heroDao;
+        this.orgDao = orgDao;
+        this.powerDao = powerDao;
+        this.locDao = locDao;
+    }
+
     @Override
     public List<Superpower> getAllPowers() {
         return powerDao.getAllPowers();
@@ -81,7 +89,6 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
 
     @Override
     public void updateHero(Hero aHero) {
-        
         heroDao.updateHero(aHero);
     }
 
