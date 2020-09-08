@@ -5,6 +5,7 @@
  */
 package com.rlaraiii.superherosightings.models;
 
+import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -28,6 +29,8 @@ public class Organization {
     
     @Size(max = 45, message = "Contact info must be less than 45 characters")
     private String contact_info;
+
+    private List<Hero> members;
 
     public int getId() {
         return id;
@@ -69,14 +72,23 @@ public class Organization {
         this.contact_info = contact_info;
     }
 
+    public List<Hero> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Hero> members) {
+        this.members = members;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + this.id;
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + Objects.hashCode(this.description);
-        hash = 67 * hash + Objects.hashCode(this.address);
-        hash = 67 * hash + Objects.hashCode(this.contact_info);
+        int hash = 7;
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + Objects.hashCode(this.name);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + Objects.hashCode(this.address);
+        hash = 89 * hash + Objects.hashCode(this.contact_info);
+        hash = 89 * hash + Objects.hashCode(this.members);
         return hash;
     }
 
@@ -107,8 +119,15 @@ public class Organization {
         if (!Objects.equals(this.contact_info, other.contact_info)) {
             return false;
         }
+        if (!Objects.equals(this.members, other.members)) {
+            return false;
+        }
         return true;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Organization{" + "id=" + id + ", name=" + name + ", description=" + description + ", address=" + address + ", contact_info=" + contact_info + ", members=" + members + '}';
+    }
     
 }

@@ -5,7 +5,7 @@
  */
 package com.rlaraiii.superherosightings.data;
 
-import com.rlaraiiii.superherosightings.entities.Superpower;
+import com.rlaraiii.superherosightings.models.*;
 import java.util.List;
 
 /**
@@ -48,11 +48,5 @@ public interface SuperpowerDao {
      * @param id Id of superpower to remove
      */
     void deletePowerById(int id);
-    
-    /**
-     * Lists all superpowers for a given superhero
-     * @param heroId id of superhero
-     * @return list containing all powers hero currently has
-     */
-    List<Superpower> getAllSuperpowersForHero(int heroId);
+
 }

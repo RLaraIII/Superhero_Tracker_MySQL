@@ -24,8 +24,7 @@ public class Hero {
     @Size(max = 255, message = "Description must be fewer than 255 characters")
     private String description;
     
-    private List<Superpower> powers;
-    private List<Organization> organizations;
+    private int powerId;
 
     public int getId() {
         return id;
@@ -51,30 +50,21 @@ public class Hero {
         this.description = description;
     }
 
-    public List<Superpower> getPowers() {
-        return powers;
+    public int getPowerId() {
+        return powerId;
     }
 
-    public void setPowers(List<Superpower> powers) {
-        this.powers = powers;
-    }
-
-    public List<Organization> getOrganizations() {
-        return organizations;
-    }
-
-    public void setOrganizations(List<Organization> organizations) {
-        this.organizations = organizations;
+    public void setPowerId(int powerId) {
+        this.powerId = powerId;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + this.id;
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + Objects.hashCode(this.description);
-        hash = 67 * hash + Objects.hashCode(this.powers);
-        hash = 67 * hash + Objects.hashCode(this.organizations);
+        int hash = 3;
+        hash = 73 * hash + this.id;
+        hash = 73 * hash + Objects.hashCode(this.name);
+        hash = 73 * hash + Objects.hashCode(this.description);
+        hash = 73 * hash + this.powerId;
         return hash;
     }
 
@@ -93,20 +83,20 @@ public class Hero {
         if (this.id != other.id) {
             return false;
         }
+        if (this.powerId != other.powerId) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.powers, other.powers)) {
-            return false;
-        }
-        if (!Objects.equals(this.organizations, other.organizations)) {
-            return false;
-        }
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Hero{" + "id=" + id + ", name=" + name + ", description=" + description + ", powerId=" + powerId + '}';
+    }
 }

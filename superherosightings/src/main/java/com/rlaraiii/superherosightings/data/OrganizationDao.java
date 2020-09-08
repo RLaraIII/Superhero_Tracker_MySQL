@@ -5,8 +5,7 @@
  */
 package com.rlaraiii.superherosightings.data;
 
-import com.rlaraiiii.superherosightings.entities.Hero;
-import com.rlaraiiii.superherosightings.entities.Organization;
+import com.rlaraiii.superherosightings.models.*;
 import java.util.List;
 
 /**
@@ -50,8 +49,8 @@ public interface OrganizationDao {
     
     /**
      * Returns a list of all organizations a given hero is associated with
-     * @param hero hero object
+     * @param heroId id of heroS
      * @return list containing all organizations given hero is a part of
      */
-    List<Organization> getOrganizationsForHero(Hero hero);
+    List<Organization> getOrganizationsForHero(int heroId);
 }

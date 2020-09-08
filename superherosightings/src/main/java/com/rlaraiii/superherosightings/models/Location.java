@@ -16,14 +16,13 @@ import javax.validation.constraints.Size;
 public class Location {
     private int id;
     
+    @NotBlank(message = "Name cannot be blank")
     @Size(max = 45, message = "Name must be fewer than 45 characters")
     private String name;
-    
-    @NotBlank(message = "Latitude cannot be blank")
+ 
     @Size(max = 45, message = "Latitude must be fewer than 45 characters")
     private String latitude;
-    
-    @NotBlank(message = "Longitude cannot be blank")
+
     @Size(max = 45, message = "Longitude must be fewer than 45 characters")
     private String longitude;
     
@@ -124,6 +123,11 @@ public class Location {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" + "id=" + id + ", name=" + name + ", latitude=" + latitude + ", longitude=" + longitude + ", address=" + address + ", description=" + description + '}';
     }
     
     

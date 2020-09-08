@@ -7,18 +7,28 @@ package com.rlaraiii.superherosightings.models;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author R Lara
  */
 public class Sighting {
+    
     private int id;
     
+    @Min(value = 1, message = "A hero is needed for a sighting")
+    private int heroId;
+    
+    @Min(value = 1, message = "A location is needed for a sighting")
     private int locationId;
     
-    @NotBlank(message = "Sighting date/time cannot be empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "Sighting date/time cannot be empty")
+    @Past(message = "Sighting date/time cannot be in the future")
     private LocalDateTime date;
 
     public int getId() {
@@ -27,6 +37,14 @@ public class Sighting {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getHeroId() {
+        return heroId;
+    }
+
+    public void setHeroId(int heroId) {
+        this.heroId = heroId;
     }
 
     public int getLocationId() {
@@ -47,10 +65,11 @@ public class Sighting {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + this.id;
-        hash = 23 * hash + this.locationId;
-        hash = 23 * hash + Objects.hashCode(this.date);
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + this.heroId;
+        hash = 97 * hash + this.locationId;
+        hash = 97 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -69,6 +88,9 @@ public class Sighting {
         if (this.id != other.id) {
             return false;
         }
+        if (this.heroId != other.heroId) {
+            return false;
+        }
         if (this.locationId != other.locationId) {
             return false;
         }
@@ -78,4 +100,11 @@ public class Sighting {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Sighting{" + "id=" + id + ", heroId=" + heroId + ", locationId=" + locationId + ", date=" + date + '}';
+    }
+    
+    
+    
 }

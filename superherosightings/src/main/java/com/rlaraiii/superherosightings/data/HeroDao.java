@@ -5,9 +5,7 @@
  */
 package com.rlaraiii.superherosightings.data;
 
-import com.rlaraiii.superherosightings.models.Location;
-import com.rlaraiiii.superherosightings.entities.Hero;
-import com.rlaraiiii.superherosightings.entities.Organization;
+import com.rlaraiii.superherosightings.models.*;
 import java.util.List;
 
 /**
@@ -25,10 +23,10 @@ public interface HeroDao {
     Hero getHeroById(int id);
     
     /**
-     * Returns a list of all heros
-     * @return list containing all heros in database
+     * Returns a list of all heroes
+     * @return list containing all heroes in database
      */
-    List<Hero> getAllHeros();
+    List<Hero> getAllHeroes();
     
     /**
      * Adds a hero object to database
@@ -51,16 +49,23 @@ public interface HeroDao {
     void deleteHeroById(int id);
     
     /**
-     * Lists all heros for a given organization
-     * @param org organization object to find all heros for
-     * @return list containing all heros connected to organization
+     * Lists all heroes for a given organization
+     * @param orgId id of organization to find all heroes for
+     * @return list containing all heroes connected to organization
      */
-    List<Hero> getHeroesForOrganization(Organization org);
+    List<Hero> getHeroesForOrganization(int orgId);
     
     /**
-     * Lists all heros that appeared at a given location
-     * @param loc location object
-     * @return list containing all heros for a given location
+     * Lists all heroes that appeared at a given location
+     * @param locId location id 
+     * @return list containing all heroes for a given location
      */
-    List<Hero> getHerosAtLocation(Location loc);
+    List<Hero> getHeroesAtLocation(int locId);
+    
+    /**
+     * Lists all heroes with a given power
+     * @param powerId power id
+     * @return list containing all heroes with given power
+     */
+    List<Hero> getHeroesWithPowerId(int powerId);
 }

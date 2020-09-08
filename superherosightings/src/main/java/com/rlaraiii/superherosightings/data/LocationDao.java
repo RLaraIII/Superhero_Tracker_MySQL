@@ -5,8 +5,7 @@
  */
 package com.rlaraiii.superherosightings.data;
 
-import com.rlaraiii.superherosightings.models.Location;
-import com.rlaraiiii.superherosightings.entities.Hero;
+import com.rlaraiii.superherosightings.models.*;
 import java.util.List;
 
 /**
@@ -50,8 +49,10 @@ public interface LocationDao {
     
     /**
      * Returns a list of all locations a given hero was sighted at
-     * @param hero hero object 
+     * @param heroId id of hero
      * @return list of all locations a given hero was sighted at
      */
-    List<Location> getLocationsForHero(Hero hero);
+    List<Location> getLocationsForHero(int heroId);
+    
+    
 }

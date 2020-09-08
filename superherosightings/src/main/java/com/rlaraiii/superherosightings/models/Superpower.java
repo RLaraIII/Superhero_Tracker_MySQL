@@ -64,4 +64,11 @@ public class Superpower {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Superpower{" + "id=" + id + ", power=" + power + '}';
+    }
+    
+    
 }

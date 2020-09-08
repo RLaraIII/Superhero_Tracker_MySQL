@@ -5,6 +5,7 @@
  */
 package com.rlaraiii.superherosightings.data;
 
+import com.rlaraiii.superherosightings.models.Hero;
 import com.rlaraiii.superherosightings.models.Sighting;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,12 +16,21 @@ import java.util.List;
  */
 public interface SightingDao {
     /**
-     * Returns a sighting object for a given id
+     * Returns a sighting object for the given ids and date
      * Will return null if no sightings found 
-     * @param id id of sighting object
+     * @param heroId
+     * @param locationId
+     * @param date
      * @return sighting object for a hero at a location, null otherwise
      */
-    Sighting getSightingById(int id);
+    Sighting getSightingByIdsAndDate(int heroId, int locationId, LocalDateTime date);
+    
+    /**
+     * Returns a sighting object for a given id
+     * @param sightingId Id of sighting 
+     * @return sighting object for a hero at a location, null otherwise
+     */
+    Sighting getSightingBySightingId(int sightingId);
     
     /**
      * Lists all sightings currently in database
@@ -42,17 +52,16 @@ public interface SightingDao {
     void updateSighting(Sighting sighting);
     
     /**
-     * Deletes a sighting from database
-     * Will also remove the entry in the bridge connecting hero to sighting
-     * @param id id of sighting 
+     * Deletes a sighting from database 
+     * @param id sighting id
      */
     void deleteSightingById(int id);
     
     /**
-     * Lists all sightings for a given date
-     * NOTE: Time is not accounted, only date 
+     * Lists all sightings for a given location
+     * NOTE: Time should not be accounted, only the date 
      * @param date
      * @return 
      */
-    List<Sighting> getSightingsForDate(LocalDateTime date);
+    List<Sighting> getSightingsForLocation(int locId);
 }
