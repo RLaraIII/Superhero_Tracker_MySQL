@@ -53,7 +53,7 @@ public class SightingDaoDB implements SightingDao {
 
     @Override
     public List<Sighting> getAllSightings() {
-        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting";
+        final String SELECT_ALL_SIGHTINGS = "SELECT * FROM sighting ORDER BY sighting.date DESC";
         return jdbc.query(SELECT_ALL_SIGHTINGS, new SightingMapper());    
     }
 
