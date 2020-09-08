@@ -35,6 +35,30 @@
                     <a href="sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
                 </div>
             </div>
+            <div class="col text-center border border-dark">
+                <h3>10 most recent sightings</h3>
+            </div>
+            
+            <div class="row m-4 border border-dark">
+                <div class="col text-center m-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Hero</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="sighting : ${sightings}">
+                                <td th:each="location : ${locations}" th:if="${sighting.locationId == location.id}" th:text='${location.name}'>Location Name</td>
+                                <td th:each="hero : ${heroes}" th:if="${sighting.heroId == hero.id}" th:text='${hero.name}' >Hero name</td>
+                                <td th:text="${#temporals.format(sighting.date, 'dd-MM-yyyy HH:mm:ss')}">Sighting date</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
         </div>
         <!-- End main body -->
 
