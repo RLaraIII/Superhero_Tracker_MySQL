@@ -5,7 +5,6 @@
  */
 package com.rlaraiii.superherosightings.models;
 
-import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

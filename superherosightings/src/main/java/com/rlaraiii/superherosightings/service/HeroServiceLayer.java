@@ -12,6 +12,7 @@ import com.rlaraiii.superherosightings.models.Superpower;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
+import org.springframework.validation.FieldError;
 
 /**
  *
@@ -37,4 +38,6 @@ public interface HeroServiceLayer {
     public List<Organization> listOrgsForHero(Integer id);
         
     public List<Location> listLocsForHero(Integer id);
+    
+    public FieldError validateHeroName(Hero aHero);
 }

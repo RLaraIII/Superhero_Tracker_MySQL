@@ -21,6 +21,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.FieldError;
 
 /**
  *
@@ -78,7 +79,7 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
     public Set<ConstraintViolation<Hero>> addHero(Hero aHero, String[] orgIds) {
         Set<ConstraintViolation<Hero>> violations = new HashSet<>();
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-
+        
         violations = validate.validate(aHero);
 
         if (violations.isEmpty()) {
@@ -90,6 +91,24 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
         }
 
         return violations;
+    }
+    
+    @Override
+    public FieldError validateHeroName(Hero aHero) {
+        List<Hero> heroes = heroDao.getAllHeroes();
+        boolean flag = false;
+        
+        for (Hero hero : heroes) {
+            if (hero.getName().equals(aHero.getName())) {
+                flag = true;
+            }
+        }
+        
+        if (flag) {
+            return new FieldError("hero", "name", "Name already taken");
+        } else {
+            return null;
+        }
     }
 
     @Override
