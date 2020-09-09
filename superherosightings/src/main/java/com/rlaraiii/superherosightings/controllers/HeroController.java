@@ -11,6 +11,7 @@ import com.rlaraiii.superherosightings.service.HeroServiceLayer;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +37,23 @@ public class HeroController {
     public String displayHeroes(Model model) {
         List powers = serviceLayer.getAllPowers();
         List heroes = serviceLayer.getAllHeroes();
+        List orgs = serviceLayer.getAllOrgs();
         model.addAttribute("superpowers", powers);
         model.addAttribute("heroes", heroes);
+        model.addAttribute("organizations", orgs);
         model.addAttribute("errors", violations);
         return "heroes";
     }
 
     @PostMapping("addHero")
-    public String addHero(String name, String description, Integer superpowerId) {
+    public String addHero(String name, String description, Integer superpowerId, String[] organizationId) {
         Hero hero = new Hero();
 
         hero.setName(name);
         hero.setDescription(description);
         hero.setPowerId(superpowerId);
 
-        violations = serviceLayer.addHero(hero);
+        violations = serviceLayer.addHero(hero, organizationId);
 
         return "redirect:/heroes";
     }
@@ -77,21 +80,26 @@ public class HeroController {
     public String editHero(Integer id, Model model) {
         Hero hero = serviceLayer.getHero(id);
         List powers = serviceLayer.getAllPowers();
+        List orgs = serviceLayer.getAllOrgs();
+        List membership = serviceLayer.listOrgsForHero(id);
         model.addAttribute("superpowers", powers);
         model.addAttribute("hero", hero);
-
+        model.addAttribute("organizations", orgs);
+        model.addAttribute("membership", membership);
         return "editHero";
     }
 
     @PostMapping("editHero")
-    public String performEditHero(@Valid Hero hero, BindingResult result, Model model) {
+    public String performEditHero(@Valid Hero hero, BindingResult result, HttpServletRequest request, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("superpowers", serviceLayer.getAllPowers());
             model.addAttribute("hero", hero);
+            model.addAttribute("organizations", serviceLayer.getAllOrgs());
+            model.addAttribute("membership", serviceLayer.listOrgsForHero(hero.getId()));
             return "editHero";
         }
-
-        serviceLayer.updateHero(hero);
+        String[] orgIds = request.getParameterValues("organizationId");
+        serviceLayer.updateHero(hero, orgIds);
         return "redirect:/heroes";
     }
 

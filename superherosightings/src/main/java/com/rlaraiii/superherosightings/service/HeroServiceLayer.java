@@ -22,15 +22,17 @@ public interface HeroServiceLayer {
     
     public List<Hero> getAllHeroes();
     
+    public List<Organization> getAllOrgs();
+    
     public Hero getHero(int id);
     
     public Superpower getPower(int id);
     
-    public Set<ConstraintViolation<Hero>> addHero(Hero aHero);
+    public Set<ConstraintViolation<Hero>> addHero(Hero aHero, String[] orgIds);
     
     public void deleteHero(Integer id);
     
-    public void updateHero(Hero aHero);
+    public void updateHero(Hero aHero, String[] orgIds);
     
     public List<Organization> listOrgsForHero(Integer id);
         

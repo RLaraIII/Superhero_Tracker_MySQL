@@ -68,4 +68,17 @@ public interface HeroDao {
      * @return list containing all heroes with given power
      */
     List<Hero> getHeroesWithPowerId(int powerId);
+    
+    /**
+     * Connects a hero object to a org object using a bridge
+     * @param heroId id of hero
+     * @param orgId id of organization
+     */
+    void addHeroToOrg(int heroId, int orgId);
+    
+    /**
+     * Deletes all relationships between a hero and organizations
+     * @param heroId id of hero
+     */
+    void clearMembership(int heroId);
 }

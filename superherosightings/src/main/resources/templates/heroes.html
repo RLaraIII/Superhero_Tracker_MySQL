@@ -77,6 +77,19 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="organizations" class="col-3 col-form-label">
+                                Organization(s)</label>
+                            <div class="col-9">
+                                <select multiple id="organizations" name="organizationId" 
+                                        class="form-control">
+                                    <option th:each="organization : ${organizations}" 
+                                            th:value="${organization.id}" 
+                                            th:text="${organization.name}">
+                                        Organization Name</option>
+                                </select>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Add Hero</button>
                     </form>
                 </div>

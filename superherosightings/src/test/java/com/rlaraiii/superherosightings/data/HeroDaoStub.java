@@ -92,5 +92,15 @@ public class HeroDaoStub implements HeroDao{
         
         return heroes;
     }
+
+    @Override
+    public void addHeroToOrg(int heroId, int orgId) {
+        // Do nothing
+    }
+
+    @Override
+    public void clearMembership(int heroId) {
+        // Do nothing
+    }
     
 }

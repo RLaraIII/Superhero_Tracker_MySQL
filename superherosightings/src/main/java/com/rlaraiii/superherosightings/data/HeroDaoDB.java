@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author R Lara
  */
 @Repository
-public class HeroDaoDB implements HeroDao{
+public class HeroDaoDB implements HeroDao {
 
     @Autowired
     JdbcTemplate jdbc;
@@ -40,8 +40,8 @@ public class HeroDaoDB implements HeroDao{
     @Override
     public List<Hero> getAllHeroes() {
         final String SELECT_ALL_HEROES = "SELECT * from hero";
-        List <Hero> heroes = jdbc.query(SELECT_ALL_HEROES, new HeroMapper());
-        
+        List<Hero> heroes = jdbc.query(SELECT_ALL_HEROES, new HeroMapper());
+
         return heroes;
     }
 
@@ -50,14 +50,14 @@ public class HeroDaoDB implements HeroDao{
     public Hero addHero(Hero hero) {
         final String INSERT_HERO = "INSERT INTO hero(Name, Description, superpower_SuperpowerId) "
                 + "VALUES (?, ?, ?)";
-        
+
         jdbc.update(INSERT_HERO,
                 hero.getName(),
                 hero.getDescription(),
                 hero.getPowerId());
-        
+
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        hero.setId(newId);        
+        hero.setId(newId);
         return hero;
     }
 
@@ -72,17 +72,17 @@ public class HeroDaoDB implements HeroDao{
                 hero.getName(),
                 hero.getDescription(),
                 hero.getPowerId(),
-                hero.getId()); 
+                hero.getId());
     }
 
     @Override
     public void deleteHeroById(int id) {
         final String DELETE_HERO_ORGANIZATION = "DELETE FROM organization_has_hero WHERE organization_has_hero.hero_HeroId = ?";
         jdbc.update(DELETE_HERO_ORGANIZATION, id);
-        
+
         final String DELETE_SIGHTING = "DELETE FROM sighting WHERE hero_HeroId = ?";
         jdbc.update(DELETE_SIGHTING, id);
-        
+
         final String DELETE_HERO = "DELETE FROM hero WHERE HeroId = ?";
         jdbc.update(DELETE_HERO, id);
     }
@@ -114,8 +114,24 @@ public class HeroDaoDB implements HeroDao{
                 + "WHERE h.superpower_SuperpowerId = ?";
         return jdbc.query(SELECT_HEROES_WITH_POWER, new HeroMapper(), powerId);
     }
-    
+
+    @Override
+    public void addHeroToOrg(int heroId, int orgId) {
+        final String INSERT_ORG_HERO = "INSERT INTO organization_has_hero(hero_HeroId, organization_OrganizationId) "
+                + "VALUES(?, ?)";
+        jdbc.update(INSERT_ORG_HERO,
+                heroId,
+                orgId);
+    }
+
+    @Override
+    public void clearMembership(int heroId) {
+        final String DELETE_HERO_ORG = "DELETE FROM organization_has_hero WHERE hero_HeroId = ?";
+        jdbc.update(DELETE_HERO_ORG, heroId);
+    }
+
     public static final class HeroMapper implements RowMapper<Hero> {
+
         @Override
         public Hero mapRow(ResultSet rs, int index) throws SQLException {
             Hero hero = new Hero();

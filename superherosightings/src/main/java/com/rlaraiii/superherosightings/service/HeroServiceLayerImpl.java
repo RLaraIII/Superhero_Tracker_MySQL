@@ -28,15 +28,16 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class HeroServiceLayerImpl implements HeroServiceLayer {
+
     @Autowired
     HeroDao heroDao;
-    
+
     @Autowired
     OrganizationDao orgDao;
-    
+
     @Autowired
     SuperpowerDao powerDao;
-    
+
     @Autowired
     LocationDao locDao;
 
@@ -52,33 +53,42 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
     public List<Superpower> getAllPowers() {
         return powerDao.getAllPowers();
     }
-    
+
     @Override
     public List<Hero> getAllHeroes() {
         return heroDao.getAllHeroes();
     }
 
     @Override
+    public List<Organization> getAllOrgs() {
+        return orgDao.getAllOrganizations();
+    }
+
+    @Override
     public Hero getHero(int id) {
         return heroDao.getHeroById(id);
     }
-    
+
     @Override
     public Superpower getPower(int id) {
         return powerDao.getPowerById(id);
     }
 
     @Override
-    public Set<ConstraintViolation<Hero>> addHero(Hero aHero) {
+    public Set<ConstraintViolation<Hero>> addHero(Hero aHero, String[] orgIds) {
         Set<ConstraintViolation<Hero>> violations = new HashSet<>();
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-        
+
         violations = validate.validate(aHero);
-        
+
         if (violations.isEmpty()) {
             heroDao.addHero(aHero);
+
+            for (String orgId : orgIds) {
+                heroDao.addHeroToOrg(aHero.getId(), Integer.parseInt(orgId));
+            }
         }
-        
+
         return violations;
     }
 
@@ -88,8 +98,16 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
     }
 
     @Override
-    public void updateHero(Hero aHero) {
+    public void updateHero(Hero aHero, String[] orgIds) {
         heroDao.updateHero(aHero);
+
+        heroDao.clearMembership(aHero.getId());
+
+        if (orgIds != null) {
+            for (String orgId : orgIds) {
+                heroDao.addHeroToOrg(aHero.getId(), Integer.parseInt(orgId));
+            }
+        }
     }
 
     @Override
@@ -101,5 +119,5 @@ public class HeroServiceLayerImpl implements HeroServiceLayer {
     public List<Location> listLocsForHero(Integer id) {
         return locDao.getLocationsForHero(id);
     }
-    
+
 }

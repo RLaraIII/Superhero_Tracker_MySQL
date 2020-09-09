@@ -62,7 +62,7 @@
                 <div class="col-6 text-right"><strong>Heroes In Organization</strong></div>
                 <div class="col-6 text-left">
                     <span th:each="hero : ${heroes}">
-                        <span th:text="${hero.id + ' ' + hero.name}">
+                        <span th:text="${hero.name}">
                             display hero</span><br/>
                     </span>
                 </div>

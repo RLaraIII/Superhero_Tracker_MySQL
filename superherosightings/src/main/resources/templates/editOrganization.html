@@ -95,14 +95,13 @@
                         <div class="form-group row">
                             <label for="heroes" class="col-3 col-form-label">Heroes</label>
                             <div class="col-9">
-                                <select multiple id="heroes" name="heroId" class="form-control">
+                                <select multiple id="heroes" name="heroId" class="form-control" required>
                                     <option th:each="hero : ${heroes}" 
                                             th:value="${hero.id}" 
                                             th:text="${hero.name}"
                                             th:selected="${organization.members.contains(hero)}">
                                         Heroes</option>
                                 </select>
-                                
                                 <div th:if="${#fields.hasErrors('organization.members')}">
                                     <p th:each="error : ${#fields.errors('organization.members')}" 
                                        class="alert alert-danger" th:text="${error}"> 

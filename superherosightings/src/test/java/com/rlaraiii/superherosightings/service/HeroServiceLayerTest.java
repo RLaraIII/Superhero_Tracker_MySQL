@@ -49,9 +49,11 @@ public class HeroServiceLayerTest {
         hero.setDescription("Lives in a batcave");
         hero.setPowerId(1);
         
+        String[] orgIds = {};
+        
         Set<ConstraintViolation<Hero>> violations = new HashSet<>();
         
-        violations = service.addHero(hero);
+        violations = service.addHero(hero, orgIds);
         
         assertTrue(violations.isEmpty());
     }
@@ -62,10 +64,11 @@ public class HeroServiceLayerTest {
 
         hero.setDescription("Lives in a batcave");
         hero.setPowerId(1);
+        String[] orgIds = {};
         
         Set<ConstraintViolation<Hero>> violations = new HashSet<>();
         
-        violations = service.addHero(hero);
+        violations = service.addHero(hero, orgIds);
         
         assertFalse(violations.isEmpty());
     }

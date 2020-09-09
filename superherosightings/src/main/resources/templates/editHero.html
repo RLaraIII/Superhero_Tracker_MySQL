@@ -82,6 +82,20 @@
                                 </select>
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label for="organizations" class="col-3 col-form-label">Organizations</label>
+                            <div class="col-9">
+                                <select multiple id="organizations" name="organizationId" class="form-control">
+                                    <option th:each="organization : ${organizations}" 
+                                            th:value="${organization.id}" 
+                                            th:text="${organization.name}"
+                                            th:selected="${membership.contains(organization)}">
+                                        Organizations</option>
+                                </select>
+                            </div>
+                        </div>
+                        
                         <input type="hidden" name="id" th:value="${hero.id}"/>
                         <button type="submit" class="btn btn-primary">Update Hero</button>
                     </form>
